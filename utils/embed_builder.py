@@ -1,33 +1,35 @@
 import discord
+from discord import app_commands
+
+from core.calculator import calculate_layout
+from core.data_loader import RECIPES
+from utils.layout_view import LayoutView
 
 
-def build_layout_embed(recipe, pasture, fields):
+def register(tree):
 
-    embed = discord.Embed(
-        title=f"Island Layout — {recipe}",
-        color=0x9b59b6
+    recipe_choices = [
+        app_commands.Choice(name=k, value=k)
+        for k in RECIPES.keys()
+    ][:25]
+
+    @tree.command(name="optimize", description="Sustainable island farm layout")
+    @app_commands.choices(recipe=recipe_choices)
+    @app_commands.describe(
+        recipe="Select recipe",
+        plots="Total island plots"
     )
+    async def optimize(
+        interaction: discord.Interaction,
+        recipe: app_commands.Choice[str],
+        plots: int
+    ):
 
-    pasture_text = "\n".join(
-        f"{animal}: {plots} plots"
-        for animal, plots in pasture.items()
-    ) or "None"
+        pasture, fields = calculate_layout(recipe.value, plots)
 
-    field_text = "\n".join(
-        f"{crop}: {plots} plots"
-        for crop, plots in fields.items()
-    ) or "None"
+        view = LayoutView(recipe.value, pasture, fields)
 
-    embed.add_field(
-        name="🐄 Pasture Plots",
-        value=pasture_text,
-        inline=False
-    )
-
-    embed.add_field(
-        name="🌾 Field Plots",
-        value=field_text,
-        inline=False
-    )
-
-    return embed
+        await interaction.response.send_message(
+            embed=view.build_embed(),
+            view=view
+        )
