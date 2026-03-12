@@ -1,8 +1,0 @@
-{
-  "Pig": {"feed": "Corn", "feed_qty": 10},
-  "Goose": {"feed": "Cabbage", "feed_qty": 10},
-  "Chicken": {"feed": "Wheat", "feed_qty": 10},
-  "Cow": {"feed": "Pumpkin", "feed_qty": 10},
-  "Sheep": {"feed": "Turnip", "feed_qty": 10},
-  "Goat": {"feed": "Potato", "feed_qty": 10}
-}
