@@ -1,0 +1,19 @@
+{
+    "city_bonuses": {
+        "fort_sterling": {
+            "turnips": 1.1,
+            "hen_eggs": 1.1,
+            "sheep_milk": 1.1
+        }
+    },
+    "farming": {
+        "crop_yield_avg": 9,
+        "animal_yield_avg": 9,
+        "feed_requirement": 18,
+        "favorite_feed_requirement": 9
+    },
+    "rrr": {
+        "city_no_focus": 0.248,
+        "city_focus": 0.479
+    }
+}
